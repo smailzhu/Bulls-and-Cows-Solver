@@ -1,4 +1,15 @@
+import System.Random
 import Control.Monad -- for replicateM
+
+{-
+ - random choose one from all possibles
+ - An alternative for chooseFirst
+ -}
+randomChoose :: Eq a => [[a]] -> IO [a]
+randomChoose pool = do
+            r <- randomRIO (0, (length pool)-1)
+            return $ pool !! r
+
 
 {-
  - check how many char are A (correct position and correct char)
@@ -7,7 +18,6 @@ import Control.Monad -- for replicateM
  - checkA [1,2,3,4] [1,3,4,5] == 1
  - checkA [1,2,3,4] [1,2,3,4] == 4
  -}
-
 checkA :: Eq a => [a] -> [a] -> Int
 checkA [] [] = 0
 checkA (x:xs) (y:ys)
