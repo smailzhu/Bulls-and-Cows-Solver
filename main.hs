@@ -1,3 +1,4 @@
+import Control.Monad -- for replicateM
 
 {-
  - check how many char are A (correct position and correct char)
@@ -21,7 +22,6 @@ checkA (x:xs) (y:ys)
  - checkAB [9,5,2,7] [1,2,3,4] == (0, 1)
  - checkAB [9,5,2,7] [1,3,2,4] == (1, 0)
  -}
-
 checkAB :: Eq a => [a] -> [a] -> (Int, Int)
 checkAB xs ys = (a_num, b_num)
     where a_num = checkA xs ys
@@ -33,8 +33,15 @@ checkAB xs ys = (a_num, b_num)
  - hasSame [1,2,3,4] == False
  - hasSame [1,2,3,1] == True
  -}
-
 hasSame :: Eq a => [a] -> Bool
 hasSame [] = False
 hasSame (x:xs) = elem x xs || hasSame xs
 
+
+{- Answer Pool
+ -
+ - Generate all possible answer
+ - remove wihch has duplicate element
+ -}
+allAnswer :: Eq a => Int -> [a] -> [[a]]
+allAnswer n x = filter (\x -> not $ hasSame x) $ replicateM n x
