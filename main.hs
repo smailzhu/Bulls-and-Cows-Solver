@@ -1,5 +1,16 @@
+import Data.Char
+import System.IO
 import System.Random
 import Control.Monad -- for replicateM
+
+main:: IO()
+main = do
+    let ansSet = ['0'..'9']
+    i <- prompt "How many digit you want to play with? "
+    putStr "Choose from: "
+    putStrLn $ ansSet
+    solver $ allAnswer (read i :: Int) ansSet
+
 
 -- https://stackoverflow.com/a/13190872
 prompt :: String -> IO String
