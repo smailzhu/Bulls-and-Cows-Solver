@@ -1,6 +1,31 @@
 import System.Random
 import Control.Monad -- for replicateM
 
+-- https://stackoverflow.com/a/13190872
+prompt :: String -> IO String
+prompt text = do
+    putStr text
+    hFlush stdout
+    getLine
+
+
+{-
+ - find the solution from ansPool (all possible solutions)
+ - if ansPool is empty: it may have some problem
+ - if ansPool only has one solution that whould be the correct one
+ - if ansPool has more than one possible solutions: random choose one and ask user
+ -}
+solver :: (Show a, Eq a) => [[a]] -> IO()
+solver ansPool
+    | 0 == length ansPool = putStr "I cannot find solotion"
+    | 1 == length ansPool = print $ head ansPool
+    | otherwise = do
+              newTest <- randomChoose ansPool
+              putStrLn $ "I guess " ++ show newTest
+              a <- prompt "A:? "
+              b <- prompt "B:? "
+              solver $ updateAnswers ansPool newTest (read a :: Int, read b :: Int)
+
 {-
  - random choose one from all possibles
  - An alternative for chooseFirst
@@ -55,3 +80,11 @@ hasSame (x:xs) = elem x xs || hasSame xs
  -}
 allAnswer :: Eq a => Int -> [a] -> [[a]]
 allAnswer n x = filter (\x -> not $ hasSame x) $ replicateM n x
+
+
+{- Update answer pool
+ - choose the solutions which match the rules base on the test
+ -}
+updateAnswers :: Eq a => [[a]] -> [a] -> (Int, Int) -> [[a]]
+updateAnswers ans test rules = filter ((rules==) .(\x -> checkAB test x)) ans
+
