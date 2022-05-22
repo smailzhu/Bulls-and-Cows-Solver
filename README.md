@@ -4,3 +4,5 @@ Bulls = correct code, correct position.
 Cows = correct code, wrong position.
 
 Bulls mark as 'A' in response, cows mark as 'B' in response.
+
+![image](screenshot.png)
