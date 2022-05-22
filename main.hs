@@ -7,8 +7,7 @@ main:: IO()
 main = do
     let ansSet = ['0'..'9']
     i <- prompt "How many digit you want to play with? "
-    putStr "Choose from: "
-    putStrLn $ ansSet
+    putStrLn $ "Choosing " ++ show i ++ " digit from: " ++ ansSet
     solver $ allAnswer (read i :: Int) ansSet
 
 
@@ -28,7 +27,7 @@ prompt text = do
  -}
 solver :: (Show a, Eq a) => [[a]] -> IO()
 solver ansPool
-    | 0 == length ansPool = putStr "I cannot find solotion"
+    | 0 == length ansPool = putStrLn "I cannot find any possible solotion"
     | 1 == length ansPool = print $ head ansPool
     | otherwise = do
               newTest <- randomChoose ansPool
