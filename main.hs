@@ -2,6 +2,7 @@ import Data.Char
 import System.IO
 import System.Random
 import Control.Monad -- for replicateM
+import Data.List -- for nub
 
 main:: IO()
 main = do
@@ -75,12 +76,11 @@ checkAB xs ys = (a_num, b_num)
 
 {- check if list has duplicate element
  -
- - hasSame [1,2,3,4] == False
- - hasSame [1,2,3,1] == True
+ - hasDuplicates [1,2,3,4] == False
+ - hasDuplicates [1,2,3,1] == True
  -}
-hasSame :: Eq a => [a] -> Bool
-hasSame [] = False
-hasSame (x:xs) = elem x xs || hasSame xs
+hasDuplicates :: Eq a => [a] -> Bool
+hasDuplicates xs = length (nub xs) /= length xs
 
 
 {- Answer Pool
@@ -89,7 +89,7 @@ hasSame (x:xs) = elem x xs || hasSame xs
  - remove wihch has duplicate element
  -}
 allAnswer :: Eq a => Int -> [a] -> [[a]]
-allAnswer n x = filter (\x -> not $ hasSame x) $ replicateM n x
+allAnswer n x = filter (\x -> not $ hasDuplicates x) $ replicateM n x
 
 
 {- Update answer pool
