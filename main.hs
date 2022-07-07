@@ -96,5 +96,6 @@ allAnswer n x = filter (\x -> not $ hasDuplicates x) $ replicateM n x
  - choose the solutions which match the rules base on the test
  -}
 updateAnswers :: Eq a => [[a]] -> [a] -> (Int, Int) -> [[a]]
-updateAnswers ans test rules = filter ((rules==) .(\x -> checkAB test x)) ans
+-- updateAnswers ans test rules = filter ((rules==) .(\x -> checkAB test x)) ans
+updateAnswers ans test rules = filter ((rules==).(checkAB test)) ans
 
